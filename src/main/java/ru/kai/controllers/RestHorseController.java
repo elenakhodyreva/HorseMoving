@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.kai.services.PathFinder;
 import ru.kai.transfer.TaskAnswer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 public class RestHorseController {
     int aCode = 65;

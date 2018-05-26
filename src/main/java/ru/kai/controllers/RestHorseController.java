@@ -2,31 +2,27 @@ package ru.kai.controllers;
 
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kai.services.PathFinder;
 import ru.kai.transfer.TaskAnswer;
 
-import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
 public class RestHorseController {
-    int aCode = 65;
 
     @GetMapping("/horse/rest/count")
-    public TaskAnswer getMoveCount(ServletRequest request, ModelMap model) {
+    public TaskAnswer getMoveCount(HttpServletRequest request, ModelMap model) {
 
-        Map<String, String[]> paramMap = request.getParameterMap();
+        if (request.getParameter("width")!=null && request.getParameter("height")!=null
+                && request.getParameter("start")!=null && request.getParameter("end")!=null) {
 
-        if (paramMap.containsKey("width") && paramMap.containsKey("height")
-                && paramMap.containsKey("start") && paramMap.containsKey("end")) {
+            Integer width = Integer.parseInt(request.getParameter("width"));
+            Integer height = Integer.parseInt(request.getParameter("height"));
 
-            Integer width = Integer.parseInt(paramMap.get("width")[0]);
-            Integer height = Integer.parseInt(paramMap.get("height")[0]);
-
-            String start = paramMap.get("start")[0];
-            String end = paramMap.get("end")[0];
+            String start= request.getParameter("start");
+            String end= request.getParameter("end");
 
             int aCode = 65;
             int letter1 = (int) start.charAt(0) - aCode;

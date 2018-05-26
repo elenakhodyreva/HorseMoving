@@ -42,7 +42,7 @@ public class RestHorseControllerTest {
                 .andExpect(jsonPath("$.*", Matchers.hasSize(1)));
     }
 
-    //нет ходов, возвращается единица
+    //нет ходов, возвращается -1
     @Test
     public void testJsonIsNotPath() throws Exception {
 

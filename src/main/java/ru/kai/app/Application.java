@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import ru.kai.servlets.HorseMoveServlet;
 
+
 @Configuration
 @EnableAutoConfiguration
 @SpringBootApplication
@@ -17,9 +18,11 @@ import ru.kai.servlets.HorseMoveServlet;
 @EntityScan(basePackages = "ru.kai.models")
 public class Application {
 
+    //можно еще таким образом запустить сервлет
     @Bean
     public ServletRegistrationBean servletRegistrationBean(){
-        ServletRegistrationBean bean=  new ServletRegistrationBean(new HorseMoveServlet());
+        ServletRegistrationBean bean=
+              new ServletRegistrationBean(new HorseMoveServlet(), "/horse/anotherView/count/*");
         return bean;
     }
 

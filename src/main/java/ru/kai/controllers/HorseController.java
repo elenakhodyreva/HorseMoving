@@ -12,7 +12,7 @@ public class HorseController {
 
     int aCode = 65;
 
-    @GetMapping("/horse/count")
+    @GetMapping("/horse/servlet/count")
     public String getMoveCountPage(@RequestParam(name = "width") int width,
                                @RequestParam(name = "height") int height,
                                @RequestParam(name = "start") String start,

@@ -64,4 +64,14 @@ public class RestHorseControllerTest {
                 .andExpect(jsonPath("$.moveCount", Matchers.is("3")))
                 .andExpect(jsonPath("$.*", Matchers.hasSize(1)));
     }
+
+    @Test
+    public void testNotEnoughOfData() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/horse/rest/count"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.moveCount", Matchers.is("недостаточно данных")))
+                .andExpect(jsonPath("$.*", Matchers.hasSize(1)));
+    }
 }

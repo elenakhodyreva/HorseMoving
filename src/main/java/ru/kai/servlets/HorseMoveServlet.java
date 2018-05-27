@@ -15,25 +15,34 @@ public class HorseMoveServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Integer width = Integer.parseInt(req.getParameter("width"));
-        Integer height = Integer.parseInt(req.getParameter("height"));
-
-        String start = req.getParameter("start");
-        String end = req.getParameter("end");
-
-        int aCode = 65;
-        int letter1 = (int) start.charAt(0) - aCode;
-        int letter2 = (int) end.charAt(0) - aCode;
-
-        int digit1 = Character.getNumericValue(start.charAt(1));
-        int digit2 = Character.getNumericValue(end.charAt(1));
-
-        PathFinder pf = new PathFinder();
-        TaskAnswer taskAnswer = TaskAnswer.builder()
-                .moveCount(String.valueOf(pf.findPath(width, height, letter1, digit1, letter2, digit2)))
-                .build();
-
         PrintWriter writer = resp.getWriter();
-        writer.write("<h1>Moving count=" + taskAnswer.getMoveCount() + "</h1>");
+
+        if (req.getParameter("width") != null && req.getParameter("height") != null
+                && req.getParameter("start") != null && req.getParameter("end") != null) {
+
+            Integer width = Integer.parseInt(req.getParameter("width"));
+            Integer height = Integer.parseInt(req.getParameter("height"));
+
+            String start = req.getParameter("start");
+            String end = req.getParameter("end");
+
+            int aCode = 65;
+            int letter1 = (int) start.charAt(0) - aCode;
+            int letter2 = (int) end.charAt(0) - aCode;
+
+            int digit1 = Integer.parseInt(start.substring(1));
+            int digit2 = Integer.parseInt(end.substring(1));
+
+            PathFinder pf = new PathFinder();
+            TaskAnswer taskAnswer = TaskAnswer.builder()
+                    .moveCount(String.valueOf(pf.findPath(width, height, letter1, digit1, letter2, digit2)))
+                    .build();
+
+
+            writer.write("<h1>Moving count=" + taskAnswer.getMoveCount() + "</h1>");
+        } else {
+            writer.write("<h1>недостаточно данных</h1>");
+        }
+
     }
 }

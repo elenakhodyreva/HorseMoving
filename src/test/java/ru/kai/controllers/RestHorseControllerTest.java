@@ -42,12 +42,12 @@ public class RestHorseControllerTest {
                 .andExpect(jsonPath("$.*", Matchers.hasSize(1)));
     }
 
-    //нет ходов, возвращается -1
+    //нет ходов, потому что вышли за область доски, возвращается -1
     @Test
     public void testJsonIsNotPath() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/horse/rest/count?width=8&height=8&start=A1&end=A1")
+                .get("/horse/rest/count?width=8&height=8&start=A1&end=A50")
                 .accept(MediaType.APPLICATION_JSON))
 
                 .andExpect(status().isOk())

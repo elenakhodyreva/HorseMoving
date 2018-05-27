@@ -38,7 +38,7 @@ public class HorseControllerTest {
     @Test
     public void testIsNotPathInController() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/horse/servlet/count?width=8&height=8&start=A1&end=A1"))
+                .get("/horse/servlet/count?width=8&height=8&start=A1&end=A50"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("count", "-1"));
     }

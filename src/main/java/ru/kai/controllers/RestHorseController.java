@@ -28,8 +28,8 @@ public class RestHorseController {
             int letter1 = (int) start.charAt(0) - aCode;
             int letter2 = (int) end.charAt(0) - aCode;
 
-            int digit1 = Character.getNumericValue(start.charAt(1));
-            int digit2 = Character.getNumericValue(end.charAt(1));
+            int digit1= Integer.parseInt(start.substring(1));
+            int digit2= Integer.parseInt(end.substring(1));
 
             PathFinder pf = new PathFinder();
 

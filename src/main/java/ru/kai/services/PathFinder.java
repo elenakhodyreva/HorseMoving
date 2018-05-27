@@ -23,6 +23,12 @@ public class PathFinder{
         Point begin = new Point(x1, y1-1);
         Point end = new Point(x2,y2-1);
 
+         //если одна и та же позиция то достигнуть ее всегда можно за два хода
+         // в любом направлении и обратно
+        if(begin.getX()== end.getX()
+                && begin.getY()== end.getY())
+            return 2;
+
         int chessField[][]= new int[width][height];
 
         for (int i=0; i<width; i++){

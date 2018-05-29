@@ -5,6 +5,6 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
-<h1>Количество ходов= ${count}</h1>
+<h1> ${count}</h1>
 </body>
 </html>

@@ -33,15 +33,17 @@ public class HorseMoveServlet extends HttpServlet {
             int digit1 = Integer.parseInt(start.substring(1));
             int digit2 = Integer.parseInt(end.substring(1));
 
-            PathFinder pf = new PathFinder();
-            TaskAnswer taskAnswer = TaskAnswer.builder()
-                    .moveCount(String.valueOf(pf.findPath(width, height, letter1, digit1, letter2, digit2)))
-                    .build();
-
-
-            writer.write("<h1>Moving count=" + taskAnswer.getMoveCount() + "</h1>");
+            if (letter1 >= width || (digit1 - 1) >= height) {
+                writer.write("<h1>start is out of bounds</h1>");
+            } else {
+                PathFinder pf = new PathFinder();
+                TaskAnswer taskAnswer = TaskAnswer.builder()
+                        .moveCount(String.valueOf(pf.findPath(width, height, letter1, digit1, letter2, digit2)))
+                        .build();
+                writer.write("<h1>Moving count=" + taskAnswer.getMoveCount() + "</h1>");
+            }
         } else {
-            writer.write("<h1>недостаточно данных</h1>");
+            writer.write("<h1>not enough of data</h1>");
         }
 
     }

@@ -31,13 +31,17 @@ public class HorseController {
             int digit1= Integer.parseInt(start.substring(1));
             int digit2= Integer.parseInt(end.substring(1));
 
-            PathFinder pf = new PathFinder();
+            if(letter1>= width || (digit1-1)>=height){
+                model.addAttribute("count", "старт за пределами доски");
+            } else{
+                PathFinder pf = new PathFinder();
+                TaskAnswer taskAnswer = TaskAnswer.builder()
+                        .moveCount(String.valueOf(pf.findPath(width, height, letter1, digit1, letter2, digit2)))
+                        .build();
 
-            TaskAnswer taskAnswer = TaskAnswer.builder()
-                    .moveCount(String.valueOf(pf.findPath(width, height, letter1, digit1, letter2, digit2)))
-                    .build();
+                model.addAttribute("count", "количество ходов "+taskAnswer.getMoveCount());
+            }
 
-            model.addAttribute("count", taskAnswer.getMoveCount());
         } else {
             model.addAttribute("count", "недостаточно данных");
         }

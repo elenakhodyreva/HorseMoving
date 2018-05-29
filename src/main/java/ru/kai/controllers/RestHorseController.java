@@ -14,36 +14,42 @@ public class RestHorseController {
 
     @GetMapping("/horse/rest/count")
     public TaskAnswer getMoveCount(HttpServletRequest request, ModelMap model) {
+        TaskAnswer taskAnswer;
 
-        if (request.getParameter("width")!=null && request.getParameter("height")!=null
-                && request.getParameter("start")!=null && request.getParameter("end")!=null) {
+        if (request.getParameter("width") != null && request.getParameter("height") != null
+                && request.getParameter("start") != null && request.getParameter("end") != null) {
 
             Integer width = Integer.parseInt(request.getParameter("width"));
             Integer height = Integer.parseInt(request.getParameter("height"));
 
-            String start= request.getParameter("start");
-            String end= request.getParameter("end");
+            String start = request.getParameter("start");
+            String end = request.getParameter("end");
 
             int aCode = 65;
             int letter1 = (int) start.charAt(0) - aCode;
             int letter2 = (int) end.charAt(0) - aCode;
 
-            int digit1= Integer.parseInt(start.substring(1));
-            int digit2= Integer.parseInt(end.substring(1));
+            int digit1 = Integer.parseInt(start.substring(1));
+            int digit2 = Integer.parseInt(end.substring(1));
 
-            PathFinder pf = new PathFinder();
+            if (letter1 >= width || (digit1 - 1) >= height) {
 
-            TaskAnswer taskAnswer = TaskAnswer.builder()
-                    .moveCount(String.valueOf(pf.findPath(width, height, letter1, digit1, letter2, digit2)))
-                    .build();
+                taskAnswer = TaskAnswer.builder()
+                        .moveCount("старт за пределами доски")
+                        .build();
 
-            return taskAnswer;
+            } else {
+                PathFinder pf = new PathFinder();
+                taskAnswer = TaskAnswer.builder()
+                        .moveCount(String.valueOf(pf.findPath(width, height, letter1, digit1, letter2, digit2)))
+                        .build();
+            }
+
         } else {
-            TaskAnswer taskAnswer = TaskAnswer.builder()
+            taskAnswer = TaskAnswer.builder()
                     .moveCount("недостаточно данных")
                     .build();
-
-            return taskAnswer;
         }
+        return taskAnswer;
     }
 }
